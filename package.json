@@ -1,0 +1,19 @@
+{
+  "name": "product",
+  "version": "1.0.0",
+  "description": "",
+  "main": "AppLauncher.java",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AssassinX-01/Product.git"
+  },
+  "author": "AssassinX-01",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AssassinX-01/Product/issues"
+  },
+  "homepage": "https://github.com/AssassinX-01/Product#readme"
+}
