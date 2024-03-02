@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.*;
 
@@ -93,30 +94,54 @@ public class goalCalculationGUI extends JFrame {
                 String notificationType = monthlyRadioButton.isSelected() ? "monthly" : "weekly";
 
                 double percentage = calculatePercentage(current, goal);
-
                 System.out.printf("Current Value: %s, Target Value: %s, Percentage: %.2f%%\n", current, goal, percentage);
 
+                String notificationMessage = "";
                 if (notificationType.equals("monthly")) {
-                    String notificationMessage = sendNotificationMonthly(current, goal, nameofgoal, dueDate);
-                    System.out.println("Type: " + notificationMessage);
+                    notificationMessage = sendNotificationMonthly(current, goal, nameofgoal, dueDate);
+                    
                 } else if (notificationType.equals("weekly")) {
-                    String notificationMessage = sendNotificationWeekly(current, goal, nameofgoal, dueDate);
-                    System.out.println("Type: " + notificationMessage);
+                    notificationMessage = sendNotificationWeekly(current, goal, nameofgoal, dueDate);
+                    
                 } else {
-                    System.out.println("Invalid notification type. Please choose 'Monthly' or 'Weekly'.");
+                    notificationMessage = "Invalid type. Please choose 'Monthly' or 'Weekly'.";
                 }
 
                 // Display the output of performGoalCalculation
                 String output = performGoalCalculation(nameofgoal, current, goal);
-                outputLabel.setText(output);
+                // Format output as HTML to split into lines
+        String htmlOutput = "<html>" + output.replaceAll("\n", "<br>") + "</html>";
 
-                
+        // Combine notificationMessage and output
+        String combinedMessage = notificationMessage + "<br><br>" + htmlOutput;
+
+        outputLabel.setText("<html>" + combinedMessage + "</html>");
             }
         });
 
         // Output Label
         outputLabel = new JLabel();
         outputLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
+
+        // Delete button
+    JButton deleteButton = new JButton("Delete");
+    deleteButton.setFont(new Font("Dialog", Font.BOLD, 18));
+    deleteButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Clear all text fields
+            nameofgoalField.setText("");
+            currentnumberField.setText("");
+            goalnumberField.setText("");
+            dueDateField.setText("");
+            // Clear radio buttons selection
+            monthlyRadioButton.setSelected(false);
+            weeklyRadioButton.setSelected(false);
+        }
+    });
+        springLayout.putConstraint(SpringLayout.WEST, deleteButton, 50, SpringLayout.WEST, calculationPanel);
+        springLayout.putConstraint(SpringLayout.NORTH, deleteButton, 300, SpringLayout.NORTH, calculationPanel);
+        calculationPanel.add(deleteButton);
 
         springLayout.putConstraint(SpringLayout.WEST, nameofgoalLabel, 50, SpringLayout.WEST, calculationPanel);
         springLayout.putConstraint(SpringLayout.NORTH, nameofgoalLabel, 50, SpringLayout.NORTH, calculationPanel);
@@ -173,14 +198,31 @@ public class goalCalculationGUI extends JFrame {
     }
 
     private String sendNotificationMonthly(double current, double goal, String nameOfGoal, Date dueDate) {
-        // Implementation for monthly notification
-        return "Monthly Calculation"; // Replace this with your logic
+    Calendar currentCal = Calendar.getInstance();
+    Calendar dueDateCal = Calendar.getInstance();
+    dueDateCal.setTime(dueDate);
+
+    int remainingMonths = dueDateCal.get(Calendar.MONTH) - currentCal.get(Calendar.MONTH);
+    int remainingYears = dueDateCal.get(Calendar.YEAR) - currentCal.get(Calendar.YEAR);
+    int totalRemainingMonths = remainingYears * 12 + remainingMonths;
+    double minimumValuePerMonth = (goal - current) / totalRemainingMonths;
+
+    String firstLine = String.format("To reach the target value of %.2f by %tF for %s,", goal, dueDate, nameOfGoal);
+    String secondLine = String.format("you need to make a minimum of %.2f per month.", minimumValuePerMonth);
+
+    return firstLine + "\n" + secondLine;
     }
 
     private String sendNotificationWeekly(double current, double goal, String nameOfGoal, Date dueDate) {
-        // Implementation for weekly notification
-        return "Weekly Calculation"; // Replace this with your logic
-    }
+        long weeksRemaining = (dueDate.getTime() - System.currentTimeMillis()) / (7 * 24 * 60 * 60 * 1000);
+        double minimumValuePerWeek = (goal - current) / weeksRemaining;
+    
+    String firstLine = String.format("To reach the target value of %.2f by %tF for %s,", goal, dueDate, nameOfGoal);
+    String secondLine = String.format("you need to make a minimum of %.2f per week.", minimumValuePerWeek);
+
+    return firstLine + "\n" + secondLine;
+}
+    
 
     private String performGoalCalculation(String nameofgoal, double currentnumber, double goal) {
         // Your goal calculation logic goes here

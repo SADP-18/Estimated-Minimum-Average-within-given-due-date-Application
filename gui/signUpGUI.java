@@ -89,7 +89,7 @@ public class signUpGUI extends JFrame {
                 // we will need to validate the user input
                 if (validateUserInput(username, password, rePassword)) {
                     // attempt to register the user to the database
-                    if (myJDBC.signup(username, password)) {
+                    if (myJDBC.signUp(username, password)) {
                         // register success
                         // dispose of this gui
                         signUpGUI.this.dispose();

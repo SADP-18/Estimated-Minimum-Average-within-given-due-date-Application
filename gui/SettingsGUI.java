@@ -53,8 +53,22 @@ public class SettingsGUI extends JFrame {
     });
     add(ContactusButton);
 
+    JButton textsizeButton = new JButton("Text Size");
+        textsizeButton.setBounds(15, 180, getWidth() - 50, 50);
+        textsizeButton.setFont(new Font("Dialog", Font.BOLD, 22));
+        textsizeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+                TextSizeGUI TextSizeGUI = new TextSizeGUI();
+                TextSizeGUI.setVisible(true);
+                SettingsGUI.this.dispose();
+            }
+        });
+        add(textsizeButton);
+
     JButton languageButton = new JButton("Language");
-        languageButton.setBounds(15, 180, getWidth() - 50, 50);
+        languageButton.setBounds(15, 250, getWidth() - 50, 50);
         languageButton.setFont(new Font("Dialog", Font.BOLD, 22));
         languageButton.addActionListener(new ActionListener() {
             @Override
@@ -67,20 +81,22 @@ public class SettingsGUI extends JFrame {
         });
         add(languageButton);
 
-        JButton NotificationButton = new JButton("Notificaton");
-        NotificationButton.setBounds(15, 250, getWidth()-50,30);
-        NotificationButton.setFont(new Font("Dialog", Font.BOLD, 22));
-        
-        add(NotificationButton);
-
         JButton ChangePasswordButton = new JButton("Change Password");
-        ChangePasswordButton.setBounds(15, 320, getWidth()-50,30);
+        ChangePasswordButton.setBounds(15, 320, getWidth()-50,50);
         ChangePasswordButton.setFont(new Font("Dialog", Font.BOLD, 22));
-        
+        ChangePasswordButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Open the LANGUAGE GUI when the button is clicked
+                ChangePasswordGUI ChangePasswordGUI = new ChangePasswordGUI();
+                ChangePasswordGUI.setVisible(true);
+                SettingsGUI.this.dispose();
+            }
+        });
         add(ChangePasswordButton);
 
         JButton LogoutButton = new JButton("Logout");
-        LogoutButton.setBounds(15, 390, getWidth()-50,30);
+        LogoutButton.setBounds(15, 390, getWidth()-50,50);
         LogoutButton.setFont(new Font("Dialog", Font.BOLD, 22));
         LogoutButton.addActionListener(new ActionListener() {
              @Override

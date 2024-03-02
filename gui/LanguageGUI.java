@@ -1,6 +1,6 @@
 package gui;
 import javax.swing.*;
-
+import java.util.*;
 import constants.CommonConstants;
 
 import java.awt.*;
@@ -8,6 +8,7 @@ import java.awt.event.*;
 
 public class LanguageGUI extends JFrame {
     private JComboBox<String> languageComboBox;
+    private ResourceBundle resourceBundle;
 
     public LanguageGUI() {
         super("LanguageGUI");
@@ -52,6 +53,9 @@ public class LanguageGUI extends JFrame {
 
         add(mainPanel);
 
+        // load default language resources
+        loadLanguageResources("English");
+
         // Add action listener to the apply button
         applyButton.addActionListener(new ActionListener() {
             @Override
@@ -63,14 +67,28 @@ public class LanguageGUI extends JFrame {
 
     private void applyLanguageChange() {
         String selectedLanguage = (String) languageComboBox.getSelectedItem();
-
+        loadLanguageResources(selectedLanguage);
+        updateUIElements();
         
-        // This could involve setting locale, updating UI elements, etc.
-       
-        System.out.println("Selected Language: " + selectedLanguage);
     }
     
+    private void loadLanguageResources(String language) {
+        try {
+            // Load the resource bundle based on the selected language
+            resourceBundle = ResourceBundle.getBundle("LanguageBundle", new Locale(language));
+        } catch (MissingResourceException e) { 
+            e.printStackTrace();
+        }
 
+    }
+
+    private void updateUIElements() {
+        // Update UI elements with translated strings from the resource bundle
+        setTitle(resourceBundle.getString("windowTitle"));
+        languageComboBox.setToolTipText(resourceBundle.getString("languageComboBoxTooltip"));
+        // Update other UI elements as needed
+    }
+    
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {

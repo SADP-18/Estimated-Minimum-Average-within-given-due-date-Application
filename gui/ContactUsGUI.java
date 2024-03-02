@@ -88,7 +88,7 @@ public class ContactUsGUI extends JFrame {
 
     private void saveToFile(Map<String, String> contact) {
         String fileName = "contact_info.txt";
-        String folderPath = "C:\\school stuff\\Computer Science\\Forms\\Product"; // Replace "your_folder_path" with your desired folder path
+        String folderPath = "C:\\school stuff\\Computer Science\\Forms\\Product"; 
         File folder = new File(folderPath);
 
         if (!folder.exists()) {

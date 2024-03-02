@@ -1,16 +1,15 @@
 package gui;
 
+import javax.swing.*;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-import javax.swing.*;
-import constants.CommonConstants;
 import db_objs.User;
 import db_objs.myJDBC;
+import constants.CommonConstants;
 
 public class LoginGUI extends JFrame {
     private JTextField nameField;
@@ -30,11 +29,11 @@ public class LoginGUI extends JFrame {
         JPanel loginPanel = new JPanel();
         loginPanel.setLayout(springLayout);
 
-        // name 
+        // name
         JLabel nameLabel = new JLabel("Name: ");
         nameLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
 
-        // password 
+        // password
         JLabel passwordLabel = new JLabel("Password: ");
         passwordLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
 
@@ -49,38 +48,37 @@ public class LoginGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // get username
                 String username = nameField.getText();
-                // get password 
+                // get password
                 String password = String.valueOf(passwordField.getPassword());
                 // validate login
                 User user = myJDBC.validateLogin(username, password);
 
                 // if user is null it means invalid otherwise it is a valid account
-                if(user !=null){
+                if (user != null) {
                     // means valid login
 
-                    // dispose this gui 
+                    // dispose this gui
                     LoginGUI.this.dispose();
 
                     // launch app GUI
                     GoalmenuGUI goalmenuGUI = new GoalmenuGUI(user);
                     goalmenuGUI.setVisible(true);
 
-                    // showw success dialog
+                    // show success dialog
                     JOptionPane.showMessageDialog(goalmenuGUI, "Login Successful!");
-                }else{
+                } else {
                     // invalid login
                     JOptionPane.showMessageDialog(LoginGUI.this, "Login Failed! Please try again");
                 }
-                }
-                
-            });
+            }
+        });
         add(loginButton);
 
         // sign up label
         JLabel signUpLabel = new JLabel("<html><a href=\"#\">Don't have an account? Sign Up Here</a></html>");
         signUpLabel.setFont(new Font("Dialog", Font.PLAIN, 20));
         signUpLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        
+
         // adds an event listener so when the mouse is clicked it will launch the register gui
         signUpLabel.addMouseListener(new MouseAdapter() {
             @Override
@@ -90,7 +88,7 @@ public class LoginGUI extends JFrame {
 
                 // launch the sign up gui
                 new signUpGUI().setVisible(true);
-                
+
             }
         });
 

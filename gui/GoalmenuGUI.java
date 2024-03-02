@@ -40,7 +40,7 @@ public class GoalmenuGUI extends JFrame{
     add(GoalmenuLabel);
 
     
-    JButton stockButton = new JButton("Stock:[ ]");
+    JButton stockButton = new JButton("Stock:");
     stockButton.setBounds(5, 130, getWidth()-580,30);
     stockButton.setFont(new Font("Dialog", Font.BOLD, 22));
     stockButton.addActionListener(new ActionListener() {
@@ -53,11 +53,6 @@ public class GoalmenuGUI extends JFrame{
         }
     });
     add(stockButton);
-
-    JButton LinegraphButton = new JButton("Line Graph");
-    LinegraphButton.setBounds(550, 130, getWidth()-580,30);
-    LinegraphButton.setFont(new Font("Dialog", Font.BOLD, 22));
-    add(LinegraphButton);
 
     JButton ContactusButton = new JButton("Contact Us");
     ContactusButton.setBounds(5, 40, getWidth()-580,30);
@@ -91,6 +86,20 @@ public class GoalmenuGUI extends JFrame{
         });
    
     add(settingsLabel);  
+
+    JButton NotificationsButton = new JButton("Notifications");
+    NotificationsButton.setBounds(200, 0, getWidth()-400,30);
+    NotificationsButton.setFont(new Font("Dialog", Font.BOLD, 22));
+    NotificationsButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            GoalmenuGUI.this.dispose();
+            // Open the GoalCalculationGUI when the button is clicked
+            NotificationsGUI NotificationsGUI = new NotificationsGUI();
+            NotificationsGUI.setVisible(true);
+        }
+    });
+    add(NotificationsButton);
      
 
     // (testing) button button 
@@ -119,8 +128,8 @@ add(firstRowButton);
         public void actionPerformed(ActionEvent e) {
             GoalmenuGUI.this.dispose();
             // Open the GoalCalculationGUI when the button is clicked
-            goalCalculationGUI2 goalCalculationGUI2 = new goalCalculationGUI2();
-            goalCalculationGUI2.setVisible(true);
+            goalCalculationGUI goalCalculationGUI = new goalCalculationGUI();
+            goalCalculationGUI.setVisible(true);
         }
     });
     add(secondRowButton);
@@ -134,8 +143,8 @@ add(firstRowButton);
         public void actionPerformed(ActionEvent e) {
             GoalmenuGUI.this.dispose();
             // Open the GoalCalculationGUI when the button is clicked
-            goalCalculationGUI3 goalCalculationGUI3 = new goalCalculationGUI3();
-            goalCalculationGUI3.setVisible(true);
+            goalCalculationGUI goalCalculationGUI = new goalCalculationGUI();
+            goalCalculationGUI.setVisible(true);
         }
     });
     add(thirdRowButton);
@@ -148,8 +157,8 @@ add(firstRowButton);
         public void actionPerformed(ActionEvent e) {
             GoalmenuGUI.this.dispose();
             // Open the GoalCalculationGUI when the button is clicked
-            goalCalculationGUI4 goalCalculationGUI4 = new goalCalculationGUI4();
-            goalCalculationGUI4.setVisible(true);
+            goalCalculationGUI goalCalculationGUI = new goalCalculationGUI();
+            goalCalculationGUI.setVisible(true);
         }
     });
     add(fourthRowButton);
@@ -162,8 +171,8 @@ add(firstRowButton);
         public void actionPerformed(ActionEvent e) {
             GoalmenuGUI.this.dispose();
             // Open the GoalCalculationGUI when the button is clicked
-            goalCalculationGUI5 goalCalculationGUI5 = new goalCalculationGUI5();
-            goalCalculationGUI5.setVisible(true);
+            goalCalculationGUI goalCalculationGUI = new goalCalculationGUI();
+            goalCalculationGUI.setVisible(true);
         }
     });
     add(fifthRowButton);
