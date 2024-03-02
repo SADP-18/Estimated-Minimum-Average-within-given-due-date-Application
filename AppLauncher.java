@@ -8,7 +8,7 @@ import gui.ContactUsGUI;
 
 
 import javax.swing.*;
-import java.math.BigDecimal;
+
 
 public class AppLauncher {
     public static void main(String[] args) {
